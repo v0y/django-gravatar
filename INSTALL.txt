@@ -1,0 +1,39 @@
+Thanks for downloading django-gravatar!
+
+To install it, first use subversion to check out the source code:
+
+    svn checkout http://django-gravatar.googlecode.com/svn/trunk/ django-gravatar
+
+Now, link the included ``gravatar`` directory to your pythonpath.  On Debian 
+variants, it would look something like this.
+
+    sudo ln -s `pwd`/django-gravatar/gravatar /usr/lib/python2.5/site-packages/
+
+To use it with a Django installation, first place 'gravatar' in the INSTALLED_APPS
+tuple of your settings.py file like so:
+    
+    INSTALLED_APPS = (
+        # ...
+        'gravatar',
+    )
+
+Here is sample usage in a template.
+
+    {% load gravatar %}
+	{% gravatar blogs.author 40 %}
+
+In the previous example, a gravatar will be displayed for the specified author
+at a size of 40px square.  The second argument is optional and if not supplied
+the gravatar image will be 80px square, the default gravatar image size.
+
+In addition to supplying a user object, you can also provide a username as a
+string.  For instance:
+
+	{% gravatar 'jtauber' %}
+
+If supplied in this fashion then the user object is loaded based on the
+username information.
+
+Note that this application requires Python 2.3 or later, and Django later than
+0.96. You can obtain Python from http://www.python.org/ and Django from 
+http://www.djangoproject.com/.

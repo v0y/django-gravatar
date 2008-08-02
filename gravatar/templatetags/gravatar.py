@@ -23,7 +23,12 @@ def gravatar(user, size=80):
         username = user.username
         
     gravatar_url = "%savatar/%s/?" % (GRAVATAR_URL_PREFIX, hashlib.md5(email).hexdigest())
-    gravatar_url += urllib.urlencode({'s':str(size)})
+    query_args = {'s':str(size)}
+    if GRAVATAR_URL_PREFIX != "http://www.gravatar.com/":
+        default = "http://www.gravatar.com/avatar/%s/?" % hashlib.md5(email).hexdigest()
+        default += urllib.urlencode({'s': str(size)})
+        query_args['d'] = default
+    gravatar_url += urllib.urlencode(query_args)
     return """<img src="%s" alt="Avatar for %s" />""" % (escape(gravatar_url), username)
 
 register.simple_tag(gravatar)

@@ -7,6 +7,7 @@ from django.utils.hashcompat import md5_constructor
 import urllib
 
 GRAVATAR_URL_PREFIX = getattr(settings, "GRAVATAR_URL_PREFIX", "http://www.gravatar.com/")
+GRAVATAR_DEFAULT_IMAGE = getattr(settings, "GRAVATAR_DEFAULT_IMAGE", "")
 
 register = template.Library()
 
@@ -20,8 +21,8 @@ def get_user(user):
     return user
 
 def gravatar_for_email(email, size=80):
-    url = "%savatar/%s/" % (GRAVATAR_URL_PREFIX, md5_constructor(email).hexdigest())
-    url += urllib.urlencode({"s": str(size)})
+    url = "%savatar/%s/?" % (GRAVATAR_URL_PREFIX, md5_constructor(email).hexdigest())
+    url += urllib.urlencode({"s": str(size), "default": GRAVATAR_DEFAULT_IMAGE})
     return escape(url)
 
 def gravatar_for_user(user, size=80):

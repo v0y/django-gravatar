@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from distutils.core import setup
  
 setup(
     name='django-gravatar',
@@ -7,7 +7,10 @@ setup(
     author='James Tauber',
     author_email='jtauber@jtauber.com',
     url='http://django-gravatar.googlecode.com',
-    packages=find_packages(),
+    packages=[
+        'gravatar',
+        'gravatar.templatetags',
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
@@ -16,8 +19,5 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Framework :: Django',
-    ],
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=['setuptools'],
+    ]
 )

@@ -8,6 +8,13 @@ import urllib
 
 GRAVATAR_URL_PREFIX = getattr(settings, "GRAVATAR_URL_PREFIX", "http://www.gravatar.com/")
 GRAVATAR_DEFAULT_IMAGE = getattr(settings, "GRAVATAR_DEFAULT_IMAGE", "")
+GRAVATAR_IMG_CLASS = getattr(settings, "GRAVATAR_IMG_CLASS", None)
+
+def _imgclass_attr():
+    if GRAVATAR_IMG_CLASS:
+        return ' class="%s"' % (GRAVATAR_IMG_CLASS,)
+    else:
+        return ''
 
 register = template.Library()
 
@@ -31,12 +38,14 @@ def gravatar_for_user(user, size=80):
 
 def gravatar_img_for_email(email, size=80):
     url = gravatar_for_email(email, size)
-    return """<img src="%s" height="%s" width="%s"/>""" % (escape(url), size, size)
+    return """<img src="%s"%s height="%s" width="%s"/>""" % (escape(url),
+            _imgclass_attr(), size, size)
 
 def gravatar_img_for_user(user, size=80):
     user = get_user(user)
     url = gravatar_for_user(user)
-    return """<img src="%s" alt="Avatar for %s" height="%s" width="%s"/>""" % (escape(url), user.username, size, size)
+    return """<img src="%s"%s alt="Avatar for %s" height="%s" width="%s"/>""" % \
+            (escape(url), _imgclass_attr(), user.username, size, size)
 
 def gravatar(user, size=80):
     # backward compatibility

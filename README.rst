@@ -2,6 +2,8 @@
 django-gravatar
 ===============
 
+.. image:: http://stillmaintained.com/nvie/django-gravatar.png
+
 `django-gravatar` makes it easy to add Gravatar support to your Django
 application through the addition of a template tag.
 

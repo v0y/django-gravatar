@@ -45,27 +45,42 @@ To use it with a Django installation, first place 'gravatar' in the
 Here is sample usage in a template::
 
     {% load gravatar %}
-    {% gravatar user 40 %}
+    {% gravatar_for_user request.user 40 g %}
 
 In the previous example, a gravatar will be displayed for the specified
-author at a size of 40 pixels square.  The second argument is optional and
-if not supplied the gravatar image will be 80 pixels square, the default
-gravatar image size.
+user at a size of 40 pixels square with a rating of 'g'.  The second and
+third arguments are optional and if not supplied the gravatar image will 
+be 80 pixels square, the default gravatar image size, and will carry a
+rating of 'g', the default gravatar rating.
 
 In addition to supplying a user object, you can also provide a username as
 a string.  For instance::
 
-    {% gravatar 'jtauber' %}
+    {% gravatar_for_user 'jtauber' %}
 
 Or by email::
 
+    {% gravatar_for_email 'someone@example.com' %}
+
+It is possible to get the url wrapped in an html img tag::
+
     {% gravatar_img_for_email 'someone@example.com' %}
+    {% gravatar_img_for_user request.user %}
+    {% gravatar_img_for_user 'jtauber' %}
 
 If you only want the URL and not the full blown ``img`-tag, you can use the
 following functions::
 
-    {% gravatar_for_user 'jtauber' %}
     {% gravatar_for_email 'someone@example.com' %}
+    {% gravatar_for_user request.user %}
+    {% gravatar_for_user 'jtauber' %}
+
+If you want the gravatar profile in json decoded format,  you can use the 
+following functions::
+
+    {% gravatar_profile_for_email 'someone@example.com' %}
+    {% gravatar_profile_for_user request.user %}
+    {% gravatar_profile_for_user 'jtauber' %}
 
 There are a few configuration variables available that you can use in your
 Django's ``settings.py``:
@@ -74,5 +89,10 @@ Django's ``settings.py``:
   ``http://www.gravatar.com/``
 - **GRAVATAR_DEFAULT_IMAGE**: The default image to use, see
   http://en.gravatar.com/site/implement/images/#default-image
+- **GRAVATAR_DEFAULT_RATING**: The default rating to use, set to 'g', see
+  http://en.gravatar.com/site/implement/images/#rating
+- **GRAVATAR_DEFAULT_SIZE**: The default size to use, set to '80', see
+  http://en.gravatar.com/site/implement/images/#size
 - **GRAVATAR_IMG_CLASS**: The default CSS class name to add to generated
   ``<img>``-tags.
+

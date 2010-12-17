@@ -10,7 +10,9 @@ GRAVATAR_URL_PREFIX     = getattr(settings, "GRAVATAR_URL_PREFIX", "http://www.g
 GRAVATAR_DEFAULT_IMAGE  = getattr(settings, "GRAVATAR_DEFAULT_IMAGE", "")
 GRAVATAR_DEFAULT_RATING = getattr(settings, "GRAVATAR_DEFAULT_RATING", "g")
 GRAVATAR_DEFAULT_SIZE   = getattr(settings, "GRAVATAR_DEFAULT_SIZE", 80)
-GRAVATAR_IMG_CLASS      = getattr(settings, "GRAVATAR_IMG_CLASS", None)
+GRAVATAR_IMG_CLASS      = getattr(settings, "GRAVATAR_IMG_CLASS", "gravatar")
+
+register = template.Library()
 
 def _imgclass_attr():
     if GRAVATAR_IMG_CLASS:
@@ -18,9 +20,7 @@ def _imgclass_attr():
     else:
         return ''
 
-register = template.Library()
-
-def get_user(user):
+def _get_user(user):
     if not isinstance(user, User):
         try:
             user = User.objects.get(username=user)
@@ -57,7 +57,7 @@ def gravatar_for_email(email, size=None, rating=None):
 
 @register.simple_tag
 def gravatar_for_user(user, size=None, rating=None):
-    user = get_user(user)
+    user = _get_user(user)
     return gravatar_for_email(user.email, size, rating)
 
 @register.simple_tag

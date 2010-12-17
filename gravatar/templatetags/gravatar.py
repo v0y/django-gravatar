@@ -20,6 +20,10 @@ def _imgclass_attr():
     else:
         return ''
 
+def _wrap_img_tag(url, info, size):
+    return """<img src="%s"%s alt="Avatar for %s" height="%s" width="%s"/>""" % \ 
+            (escape(url), _imgclass_attr(), info, size, size)
+
 def _get_user(user):
     if not isinstance(user, User):
         try:
@@ -74,15 +78,36 @@ def gravatar_for_user(user, size=None, rating=None):
 
 @register.simple_tag
 def gravatar_img_for_email(email, size=None, rating=None):
+	"""
+	Generates a Gravatar img for the given email address.
+
+	Syntax::
+
+		{% gravatar_img_for_email <email> [size] [rating] %}
+	
+	Example::
+
+		{% gravatar_img_for_email someone@example.com 48 pg %}
+	"""
     url = gravatar_for_email(email, size, rating)
-    return """<img src="%s"%s height="%s" width="%s"/>""" % (escape(url),
-            _imgclass_attr(), size, size)
+    return _wrap_img_tag(url, email, size)
 
 @register.simple_tag
 def gravatar_img_for_user(user, size=None, rating=None):
+	"""
+	Generates a Gravatar img for the given user object or username.
+
+	Syntax::
+
+		{% gravatar_img_for_user <user> [size] [rating] %}
+	
+	Example::
+
+		{% gravatar_img_for_user request.user 48 pg %}
+		{% gravatar_img_for_user 'jtauber' 48 pg %}
+	"""
     url = gravatar_for_user(user, size, rating)
-    return """<img src="%s"%s alt="Avatar for %s" height="%s" width="%s"/>""" % \
-            (escape(url), _imgclass_attr(), user.username, size, size)
+    return _wrap_img_tag(url, user.username, size)
 
 @register.simple_tag
 def gravatar(user, size=None, rating=None):

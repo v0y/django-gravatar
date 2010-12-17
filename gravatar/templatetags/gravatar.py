@@ -17,8 +17,7 @@ register = template.Library()
 def _imgclass_attr():
     if GRAVATAR_IMG_CLASS:
         return ' class="%s"' % (GRAVATAR_IMG_CLASS,)
-    else:
-        return ''
+    return ''
 
 def _wrap_img_tag(url, info, size):
     return """<img src="%s"%s alt="Avatar for %s" height="%s" width="%s"/>""" % \ 

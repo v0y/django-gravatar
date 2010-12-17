@@ -109,8 +109,3 @@ def gravatar_img_for_user(user, size=None, rating=None):
     url = gravatar_for_user(user, size, rating)
     return _wrap_img_tag(url, user.username, size)
 
-@register.simple_tag
-def gravatar(user, size=None, rating=None):
-    # backward compatibility
-    return gravatar_img_for_user(user, size, rating)
-

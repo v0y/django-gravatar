@@ -33,78 +33,78 @@ def _get_user(user):
 
 @register.simple_tag
 def gravatar_for_email(email, size=None, rating=None):
-	"""
-	Generates a Gravatar URL for the given email address.
-
-	Syntax::
-
-		{% gravatar_for_email <email> [size] [rating] %}
-	
-	Example::
-
-		{% gravatar_for_email someone@example.com 48 pg %}
-	"""
-	gravatar_id = md5_constructor(email).hexdigest()
+    """
+    Generates a Gravatar URL for the given email address.
+    
+    Syntax::
+    
+    	{% gravatar_for_email <email> [size] [rating] %}
+    
+    Example::
+    
+    	{% gravatar_for_email someone@example.com 48 pg %}
+    """
+    gravatar_id = md5_constructor(email).hexdigest()
     gravatar_url = GRAVATAR_URL_PREFIX + gravatar_id
-	
-	parameters = [p for p in (
-		('d', GRAVATAR_DEFAULT_IMAGE),
-		('s', size or GRAVATAR_DEFAULT_SIZE),
-		('r', rating or GRAVATAR_DEFAULT_RATING),
-	) if p[1]]
 
-	if parameters:
-    	gravatar_url += '?' + urllib.urlencode(parameters, doseq=True)
+    parameters = [p for p in (
+        ('d', GRAVATAR_DEFAULT_IMAGE),
+        ('s', size or GRAVATAR_DEFAULT_SIZE),
+        ('r', rating or GRAVATAR_DEFAULT_RATING),
+    ) if p[1]]
+
+    if parameters:
+        gravatar_url += '?' + urllib.urlencode(parameters, doseq=True)
 
     return escape(url)
 
 @register.simple_tag
 def gravatar_for_user(user, size=None, rating=None):
-	"""
-	Generates a Gravatar URL for the given user object or username.
-
-	Syntax::
-
-		{% gravatar_for_user <user> [size] [rating] %}
-	
-	Example::
-
-		{% gravatar_for_user request.user 48 pg %}
-		{% gravatar_for_user 'jtauber' 48 pg %}
-	"""
+    """
+    Generates a Gravatar URL for the given user object or username.
+    
+    Syntax::
+    
+    	{% gravatar_for_user <user> [size] [rating] %}
+    
+    Example::
+    
+    	{% gravatar_for_user request.user 48 pg %}
+    	{% gravatar_for_user 'jtauber' 48 pg %}
+    """
     user = _get_user(user)
     return gravatar_for_email(user.email, size, rating)
 
 @register.simple_tag
 def gravatar_img_for_email(email, size=None, rating=None):
-	"""
-	Generates a Gravatar img for the given email address.
-
-	Syntax::
-
-		{% gravatar_img_for_email <email> [size] [rating] %}
-	
-	Example::
-
-		{% gravatar_img_for_email someone@example.com 48 pg %}
-	"""
+    """
+    Generates a Gravatar img for the given email address.
+    
+    Syntax::
+    
+    	{% gravatar_img_for_email <email> [size] [rating] %}
+    
+    Example::
+    
+    	{% gravatar_img_for_email someone@example.com 48 pg %}
+    """
     url = gravatar_for_email(email, size, rating)
     return _wrap_img_tag(url, email, size)
 
 @register.simple_tag
 def gravatar_img_for_user(user, size=None, rating=None):
-	"""
-	Generates a Gravatar img for the given user object or username.
-
-	Syntax::
-
-		{% gravatar_img_for_user <user> [size] [rating] %}
-	
-	Example::
-
-		{% gravatar_img_for_user request.user 48 pg %}
-		{% gravatar_img_for_user 'jtauber' 48 pg %}
-	"""
+    """
+    Generates a Gravatar img for the given user object or username.
+    
+    Syntax::
+    
+    	{% gravatar_img_for_user <user> [size] [rating] %}
+    
+    Example::
+    
+    	{% gravatar_img_for_user request.user 48 pg %}
+    	{% gravatar_img_for_user 'jtauber' 48 pg %}
+    """
     url = gravatar_for_user(user, size, rating)
     return _wrap_img_tag(url, user.username, size)
 

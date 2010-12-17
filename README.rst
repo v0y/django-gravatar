@@ -87,12 +87,12 @@ Django's ``settings.py``:
 
 - **GRAVATAR_URL_PREFIX**: The gravatar URL to use. Default:
   ``http://www.gravatar.com/``
-- **GRAVATAR_DEFAULT_IMAGE**: The default image to use. Default: ````. See
+- **GRAVATAR_DEFAULT_IMAGE**: The default image to use. Default: ``''``. See
   http://en.gravatar.com/site/implement/images/#default-image
-- **GRAVATAR_DEFAULT_RATING**: The default rating to use. Default: ``g``. See
+- **GRAVATAR_DEFAULT_RATING**: The default rating to use. Default: ``'g'``. See
   http://en.gravatar.com/site/implement/images/#rating
 - **GRAVATAR_DEFAULT_SIZE**: The default size to use. Default: ``80``. See
   http://en.gravatar.com/site/implement/images/#size
 - **GRAVATAR_IMG_CLASS**: The default CSS class name to add to generated
-  ``<img>``-tags.
+  ``<img>``-tags. Default: ``''``.
 

@@ -49,8 +49,9 @@ def gravatar_for_email(email, size=None, rating=None):
 		('s', size or GRAVATAR_DEFAULT_SIZE),
 		('r', rating or GRAVATAR_DEFAULT_RATING),
 	) if p[1]]
+
 	if parameters:
-    	gravatar_url += urllib.urlencode(parameters, doseq=True)
+    	gravatar_url += '?' + urllib.urlencode(parameters, doseq=True)
 
     return escape(url)
 

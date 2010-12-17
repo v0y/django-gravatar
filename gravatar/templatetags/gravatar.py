@@ -39,7 +39,7 @@ def gravatar_for_email(email, size=None, rating=None):
 	
 	Example::
 
-		{% gravatar_for_email foobar@example.com 48 pg %}
+		{% gravatar_for_email someone@example.com 48 pg %}
 	"""
 	gravatar_id = md5_constructor(email).hexdigest()
     gravatar_url = GRAVATAR_URL_PREFIX + gravatar_id
@@ -57,6 +57,18 @@ def gravatar_for_email(email, size=None, rating=None):
 
 @register.simple_tag
 def gravatar_for_user(user, size=None, rating=None):
+	"""
+	Generates a Gravatar URL for the given user object or username.
+
+	Syntax::
+
+		{% gravatar_for_user <user> [size] [rating] %}
+	
+	Example::
+
+		{% gravatar_for_user request.user 48 pg %}
+		{% gravatar_for_user 'jtauber' 48 pg %}
+	"""
     user = _get_user(user)
     return gravatar_for_email(user.email, size, rating)
 

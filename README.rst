@@ -94,5 +94,5 @@ Django's ``settings.py``:
 - **GRAVATAR_DEFAULT_SIZE**: The default size to use. Default: ``80``. See
   http://en.gravatar.com/site/implement/images/#size
 - **GRAVATAR_IMG_CLASS**: The default CSS class name to add to generated
-  ``<img>``-tags. Default: ``''``.
+  ``<img>``-tags. Default: ``'gravatar'``.
 

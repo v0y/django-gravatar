@@ -1,0 +1,15 @@
+
+# Directories
+
+# VIM files
+*.swp
+
+# Compiled Source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.pyc
+*.so
+

@@ -124,7 +124,7 @@ def gravatar_profile_for_email(email):
     
     	{% gravatar_profile_for_email someone@example.com %}
     """
-    gravatar_url = "%s%s" % (GRAVATAR_URL_PREFIX,_get_gravatar_id(email))
+    gravatar_url = "%s%s.json" % (GRAVATAR_URL_PREFIX,_get_gravatar_id(email))
     return simplejson.load(urllib.urlopen(gravatar_url))
 
 @register.simple_tag

@@ -25,7 +25,7 @@ def _imgclass_attr():
 
 def _wrap_img_tag(url, info, size):
     return '<img src="%s"%s alt="Avatar for %s" height="%s" width="%s"/>' % \
-            (escape(url), _imgclass_attr(), info, size, size)
+            (url, _imgclass_attr(), info, size, size)
 
 
 def _get_user(user):

@@ -1,3 +1,4 @@
+import json
 import urllib
 
 from django import template
@@ -5,7 +6,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from hashlib import md5
 from django.utils.html import escape
-from django.utils import simplejson
 
 GRAVATAR_URL_PREFIX = getattr(settings, "GRAVATAR_URL_PREFIX",
                                       "http://www.gravatar.com/")
